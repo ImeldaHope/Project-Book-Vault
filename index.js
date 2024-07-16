@@ -1,5 +1,5 @@
 const url = 'http://localhost:3000/books';
-const genres = ['Biography', 'Business','Fantasy','Fiction','Non-Fiction','Romance','Self-Help','Thriller']
+const genres = ['','Biography', 'Business','Fantasy','Fiction','Non-Fiction','Romance','Self-Help','Thriller']
 const authors = [
     "",
     "Alice Schroeder",
@@ -47,6 +47,7 @@ const authors = [
 
 document.addEventListener('DOMContentLoaded', () => {
     authorFilter();
+    genreFilter();
     renderBooks();
 })
 
@@ -76,6 +77,7 @@ function renderBooks(){
             author.textContent = item.author;
             genre.textContent = item.genre;
             bookButton.textContent = 'View Book';
+            bookButton.addEventListener('click', bookModalView);
 
             bookDiv.append(title, coverImage,author,genre, bookButton);
             bookContainer.append(bookDiv);
@@ -132,7 +134,7 @@ function authorFilter(){
                     const authorList = document.createElement('li');
                     const selectedBookImg = document.createElement('img');                   
                     const selectedBookTitle = document.createElement('p');
-                    const bookButton = document.createElement('btn');                  
+                    const bookButton = document.createElement('button');                  
                     
                     authorList.className = 'author-list';
                     bookButton.classList.add('book-button');
@@ -140,7 +142,8 @@ function authorFilter(){
                     selectedBookImg.src = book.coverImage; 
                     selectedBookTitle.textContent = `${book.title}`;  
                     bookButton.textContent = 'View Book';
-                                                  
+                    bookButton.addEventListener('click', bookModalView);
+
                     authorList.append(selectedBookImg,bookButton,selectedBookTitle);
                     ul.append(authorList)
                 });                
@@ -159,8 +162,85 @@ function authorFilter(){
     authorDiv.append(filterDiv,authorBooksDiv);
 }
 
+function genreFilter(){
+    const genreDiv = document.querySelector('#genre-filter');
+    const filterDiv = document.createElement('div');
+
+    filterDiv.classList.add('filter');
+
+    const genreBooksDiv = document.createElement('div');
+    genreBooksDiv.className = "selected-author";
+
+    const p = document.createElement('p');
+    p.textContent = 'Filter books based on genre: ';
+
+    const select = document.createElement('select');
+    select.id = "genres-dropdown";
+
+    genres.map((bkGenre) => {
+        const option = document.createElement('option');
+        option.value = bkGenre;
+        option.textContent = bkGenre;
+        select.appendChild(option);
+    })
+    
+    select.addEventListener('change', () => {
+        const selectedGenre = select.value;       
+        
+        fetch(url)
+        .then(res => res.json())
+        .then(books => {
+
+            genreBooksDiv.innerHTML = ``;
+
+            if(genres.includes(selectedGenre)){
+                
+                const ul = document.createElement('ul');
+                ul.className = "author-book";
+
+                const filteredBooks = books.filter(book => book.genre === selectedGenre);
+                const authorName = document.createElement('p');
+                authorName.classList.add('selected-author');
+                authorName.textContent = `${selectedGenre} books`;
+
+                filteredBooks.forEach(book => {   
+                    const authorList = document.createElement('li');
+                    const selectedBookImg = document.createElement('img');                   
+                    const selectedBookTitle = document.createElement('p');
+                    const bookButton = document.createElement('button');                  
+                    
+                    authorList.className = 'author-list';
+                    bookButton.classList.add('book-button');
+
+                    selectedBookImg.src = book.coverImage; 
+                    selectedBookTitle.textContent = `${book.title}`;  
+                    bookButton.textContent = 'View Book';
+                    bookButton.addEventListener('click', bookModalView);
+
+                    authorList.append(selectedBookImg,bookButton,selectedBookTitle);
+                    ul.append(authorList)
+                });                
+                
+                genreBooksDiv.append(authorName,ul);
+
+                console.log(`Selected genre "${selectedGenre}" is in the genre list.`);
+            }
+            else {
+                console.log(`Selected genre "${selectedGenre}" is not in the genre list.`);
+            } 
+        })     
+    })
+
+    filterDiv.append(p, select);
+    genreDiv.append(filterDiv,genreBooksDiv);
+}
+
 function bookModalView(){
     const modal =document.querySelector('#modal');
-
-    fetch()
+    
+    fetch(url)
+    .then(res => res.json())
+    .then(bookData => {
+        console.log("I am inside fetch");
+    })
 }
