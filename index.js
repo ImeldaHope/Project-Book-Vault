@@ -275,6 +275,8 @@ function bookExpandable(id){
             const detailedRating = document.createElement('p');
             const closeButton = document.createElement('button');
             const moreInfo = document.createElement('div');
+            const likeButton = document.createElement('button');
+            const deleteButton = document.createElement('button');
 
             detailedImage.src = book.coverImage;
             detailedTitle.textContent = book.title;
@@ -286,18 +288,30 @@ function bookExpandable(id){
             detailedLanguage.textContent = "Languages: " + book.language;
             detailedFormat.textContent = "Available in: " + book.format;
             detailedRating.textContent = "Rating: " + book.rating;
-            
+            deleteButton.textContent = 'Delete Book';            
             moreInfo.className = 'more-info';
+
+            likeButton.textContent = '❤';
+            likeButton.className = 'like-button';
 
             closeButton.textContent = 'X';
             closeButton.className = 'close-button';
             
+            const id = book.id;
+
+            likeButton.addEventListener('click', () => {
+                handleLike(id);
+            })
+            deleteButton.addEventListener('click', () => {
+                handleDelete(id);
+            })
+
             closeButton.addEventListener('click', () => {
                 detailsDiv.classList.remove('open');
             });
 
             moreInfo.append(detailedPublisher,detailedYear,detailedLanguage, detailedFormat, detailedPages,detailedRating);
-            detailsDiv.append(closeButton, detailedImage,detailedTitle,detailedAuthor,detailedSynopsis,moreInfo);
+            detailsDiv.append(closeButton, likeButton, detailedImage,detailedTitle,detailedAuthor,detailedSynopsis,moreInfo, deleteButton);
 
             bookContainer.append(detailsDiv);
             console.log(detailsDiv)
@@ -311,5 +325,18 @@ function bookExpandable(id){
     })
     .catch(err => console.error('Error fetching books:', err));
     
+}
 
+function handleLike(id){
+
+}
+
+function handleDelete(id){
+    
+    fetch(`${url}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
 }
