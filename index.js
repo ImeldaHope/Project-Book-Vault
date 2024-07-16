@@ -45,6 +45,10 @@ const authors = [
     "Yuval Noah Harari"
 ];
 
+const bookContainer = document.querySelector('#books-container');
+const authorDiv = document.querySelector('#author-filter');
+const genreDiv = document.querySelector('#genre-filter');
+
 document.addEventListener('DOMContentLoaded', () => {
     authorFilter();
     genreFilter();
@@ -54,9 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderBooks(){
     fetch(url)
     .then(res => res.json())
-    .then(data => {
-        
-        const bookContainer = document.querySelector('#books-container');        
+    .then(data => {       
+                
 
         data.map((item) => {
             const bookDiv = document.createElement('div');
@@ -77,7 +80,12 @@ function renderBooks(){
             author.textContent = item.author;
             genre.textContent = item.genre;
             bookButton.textContent = 'View Book';
-            bookButton.addEventListener('click', bookModalView);
+
+            const bookId = item.id;
+
+            bookButton.addEventListener('click', () => {
+                bookExpandable(bookId);
+            });
 
             bookDiv.append(title, coverImage,author,genre, bookButton);
             bookContainer.append(bookDiv);
@@ -89,8 +97,7 @@ function renderBooks(){
 
 }
 
-function authorFilter(){
-    const authorDiv = document.querySelector('#author-filter');
+function authorFilter(){    
     const filterDiv = document.createElement('div');
 
     filterDiv.classList.add('filter');
@@ -142,7 +149,11 @@ function authorFilter(){
                     selectedBookImg.src = book.coverImage; 
                     selectedBookTitle.textContent = `${book.title}`;  
                     bookButton.textContent = 'View Book';
-                    bookButton.addEventListener('click', bookModalView);
+
+                    const bookId = book.id;
+                    bookButton.addEventListener('click', () => {
+                        bookExpandable(bookId);
+                    });
 
                     authorList.append(selectedBookImg,bookButton,selectedBookTitle);
                     ul.append(authorList)
@@ -163,7 +174,7 @@ function authorFilter(){
 }
 
 function genreFilter(){
-    const genreDiv = document.querySelector('#genre-filter');
+    
     const filterDiv = document.createElement('div');
 
     filterDiv.classList.add('filter');
@@ -215,7 +226,11 @@ function genreFilter(){
                     selectedBookImg.src = book.coverImage; 
                     selectedBookTitle.textContent = `${book.title}`;  
                     bookButton.textContent = 'View Book';
-                    bookButton.addEventListener('click', bookModalView);
+
+                    const bookId = book.id;
+                    bookButton.addEventListener('click', () => {
+                        bookExpandable(bookId);
+                    });
 
                     authorList.append(selectedBookImg,bookButton,selectedBookTitle);
                     ul.append(authorList)
@@ -235,12 +250,66 @@ function genreFilter(){
     genreDiv.append(filterDiv,genreBooksDiv);
 }
 
-function bookModalView(){
-    const modal =document.querySelector('#modal');
+function bookExpandable(id){
     
     fetch(url)
     .then(res => res.json())
-    .then(bookData => {
-        console.log("I am inside fetch");
+    .then( data => {
+        const book = data.find(book => book.id === id);
+        
+        if(book){
+            const detailsDiv = document.createElement('div');
+            detailsDiv.className = 'book-details';
+
+            detailsDiv.innerHTML = '';
+
+            const detailedImage = document.createElement('img');
+            const detailedTitle = document.createElement('h3');
+            const detailedAuthor = document.createElement('h4');
+            const detailedPages = document.createElement('p');
+            const detailedPublisher = document.createElement('p');
+            const detailedYear = document.createElement('p');
+            const detailedLanguage = document.createElement('p');
+            const detailedSynopsis = document.createElement('p');
+            const detailedFormat = document.createElement('p');
+            const detailedRating = document.createElement('p');
+            const closeButton = document.createElement('button');
+            const moreInfo = document.createElement('div');
+
+            detailedImage.src = book.coverImage;
+            detailedTitle.textContent = book.title;
+            detailedAuthor.textContent = book.author;
+            detailedSynopsis.textContent = book.synopsis;
+            detailedPages.textContent = book.pages + " pages";
+            detailedPublisher.textContent = "Publisher: " +book.publisher;
+            detailedYear.textContent = "Published in: " + book.publicationDate;
+            detailedLanguage.textContent = "Languages: " + book.language;
+            detailedFormat.textContent = "Available in: " + book.format;
+            detailedRating.textContent = "Rating: " + book.rating;
+            
+            moreInfo.className = 'more-info';
+
+            closeButton.textContent = 'X';
+            closeButton.className = 'close-button';
+            
+            closeButton.addEventListener('click', () => {
+                detailsDiv.classList.remove('open');
+            });
+
+            moreInfo.append(detailedPublisher,detailedYear,detailedLanguage, detailedFormat, detailedPages,detailedRating);
+            detailsDiv.append(closeButton, detailedImage,detailedTitle,detailedAuthor,detailedSynopsis,moreInfo);
+
+            bookContainer.append(detailsDiv);
+            console.log(detailsDiv)
+
+            detailsDiv.classList.toggle('open');
+
+        } else {
+            console.error(`Book with ID ${id} not found in local data.`);
+        }
+        
     })
+    .catch(err => console.error('Error fetching books:', err));
+    
+
 }
