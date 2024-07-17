@@ -193,7 +193,7 @@ p.selected-author{
 }
 
 .added-book{
-    margin: 30px;
+    margin: 30px;    
 }
 
 .new-book{
@@ -201,6 +201,17 @@ p.selected-author{
     margin: 30px;
 }
 
+.newly-added{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} 
+ 
+/* .books-created{
+    display: flex;
+    flex-direction: row;
+    
+} */
 
 .new-book.open{
     display: block;

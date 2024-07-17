@@ -362,7 +362,7 @@ function handleLike(id){
 }
 
 function newBook(){
-    const addedBooks = document.querySelector('.added-book');
+    const addedBooks = document.querySelector('.newly-added');
     const bookDiv = document.querySelector('.new-book');
     const bookBtn = document.querySelector('#book-btn');
     const bookForm = document.createElement('form');
@@ -379,8 +379,10 @@ function newBook(){
         const submit = document.createElement('input');
         const createdBooks = document.createElement('div');
         
-        bookDiv.innerHTML = '';
+        createdBooks.className = 'newly-added';
 
+        bookDiv.innerHTML = '';
+        
         bookForm.id = 'book-form';
         bookForm.style.display = 'flex';
         submit.type = 'submit'; 
@@ -425,15 +427,16 @@ function newBook(){
             })
             .then(res => res.json())
             .then((book) => {
-    
+                const createdBookDiv = document.createElement('div');
                 const title = document.createElement('p');
                 const coverImage = document.createElement('img');
                 const author = document.createElement('p');
                 const genre = document.createElement('p');
                 const rating = document.createElement('p');
-                const bookButton = document.createElement('btn');
-    
-                createdBooks.className = 'book';
+                const bookButton = document.createElement('btn');               
+                
+
+                createdBookDiv.className = 'book';
                 author.className = 'author';
                 title.className = 'title';
                 bookButton.className = 'book-button';
@@ -450,9 +453,10 @@ function newBook(){
                     bookExpandable(bookId);
                 });
     
-                createdBooks.append(title, coverImage, author, genre, bookButton)
+                createdBookDiv.append(title, coverImage, author, genre, bookButton)
+                createdBooks.append(createdBookDiv);
             })
-
+            
             bookForm.reset()
         })
         

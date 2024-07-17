@@ -13,7 +13,7 @@
       "publisher": "Avery",
       "format": "Hardcover, Paperback, eBook",
       "edition": "",
-      "rating": null
+      "rating": "5"
     },
     {
       "id": "1",
@@ -732,7 +732,7 @@
       "publisher": "Times Books",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "4",
       "id": "48"
     },
     {
@@ -747,7 +747,7 @@
       "publisher": "Bantam Books",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "5",
       "id": "49"
     },
     {
@@ -807,7 +807,7 @@
       "publisher": "Little, Brown and Company",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "4",
       "id": "53"
     },
     {
@@ -972,7 +972,7 @@
       "publisher": "Random House",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "4",
       "id": "64"
     },
     {
@@ -1033,7 +1033,7 @@
       "publisher": "Open Road Media",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null
+      "rating": "4"
     },
     {
       "id": "69",
