@@ -193,7 +193,7 @@
       "publisher": "Harvill Secker",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null
+      "rating": "3"
     },
     {
       "title": "Think and Grow Rich",
@@ -252,7 +252,7 @@
       "publisher": "Pocket Books",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "5",
       "id": "16"
     },
     {
@@ -267,7 +267,7 @@
       "publisher": "Bantam Books",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "4",
       "id": "17"
     },
     {
@@ -372,7 +372,7 @@
       "publisher": "Simon & Schuster",
       "format": "Hardcover, Paperback, eBook",
       "edition": "First Edition",
-      "rating": 4.5,
+      "rating": "4",
       "id": "24"
     },
     {
@@ -672,7 +672,7 @@
       "publisher": "Viking Penguin",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "5",
       "id": "44"
     },
     {
@@ -852,7 +852,7 @@
       "publisher": "Knopf",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "3",
       "id": "56"
     },
     {
@@ -927,7 +927,7 @@
       "publisher": "Free Press",
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
-      "rating": null,
+      "rating": "4",
       "id": "61"
     },
     {
@@ -1049,14 +1049,6 @@
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
       "rating": null
-    },
-    {
-      "id": "7059",
-      "title": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "coverImage": "https://covers.openlibrary.org/b/id/10675771-L.jpg",
-      "genre": "Fiction",
-      "rating": "4"
     }
   ]
 }

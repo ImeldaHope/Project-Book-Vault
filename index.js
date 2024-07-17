@@ -257,10 +257,14 @@ function bookExpandable(id){
     .then(res => res.json())
     .then( data => {
         const book = data.find(book => book.id === id);
-        
+        console.log(document.getElementById('detailsId'));
+        const varName = document.getElementById('detailsId');
+
         if(book){
+            
             const detailsDiv = document.createElement('div');
             detailsDiv.className = 'book-details';
+            detailsDiv.id = 'detailsId';
 
             detailsDiv.innerHTML = '';
 
@@ -333,8 +337,14 @@ function bookExpandable(id){
             moreInfo.append(detailedPublisher,detailedYear,detailedLanguage, detailedFormat, detailedPages,detailedRating);
             detailsDiv.append(closeButton, likeButton, detailedImage,detailedTitle,detailedAuthor,detailedSynopsis,moreInfo, inputDiv, deleteButton);
 
-            bookContainer.append(detailsDiv);
-            console.log(detailsDiv)
+            if(varName){
+                bookContainer.removeChild(bookContainer.lastChild)
+                bookContainer.append(detailsDiv);
+            } else {
+                bookContainer.append(detailsDiv);
+            }
+            
+            
 
             detailsDiv.classList.toggle('open');
 
@@ -369,11 +379,13 @@ function newBook(){
         const submit = document.createElement('input');
         const createdBooks = document.createElement('div');
         
+        bookDiv.innerHTML = '';
 
         bookForm.id = 'book-form';
         bookForm.style.display = 'flex';
         submit.type = 'submit'; 
         
+        bookForm.innerHTML = '';
         bookDiv.classList.toggle('open')
 
         bookCover.placeholder = 'Enter cover image url';
@@ -385,8 +397,7 @@ function newBook(){
         closeButton.textContent = 'X';
         closeButton.className = 'close-button';
 
-        closeButton.addEventListener('click', () => {
-            console.log("Bruv I wanna leave")
+        closeButton.addEventListener('click', () => {            
             bookDiv.classList.remove('open');
         });
 
@@ -401,7 +412,7 @@ function newBook(){
                 genre: genreInput.value,
                 rating: ratingInput.value
             };
-            console.log(bookData);
+            
 
             e.preventDefault();
 
@@ -460,7 +471,7 @@ function handleDelete(id){
         headers: {
             'Content-Type': 'application/json',
         }
-    })
+    })    
 }
 
 function updateRate(id, newRate){
@@ -471,5 +482,10 @@ function updateRate(id, newRate){
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({rating: newRate})
+    })
+    .then(res => res.json())
+    .then((data)=> {
+        bookExpandable(data.id)
+
     })
 }
