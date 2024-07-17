@@ -352,6 +352,7 @@ function handleLike(id){
 }
 
 function newBook(){
+    const addedBooks = document.querySelector('.added-book');
     const bookDiv = document.querySelector('.new-book');
     const bookBtn = document.querySelector('#book-btn');
     const bookForm = document.createElement('form');
@@ -373,6 +374,8 @@ function newBook(){
         bookForm.style.display = 'flex';
         submit.type = 'submit'; 
         
+        bookDiv.classList.toggle('open')
+
         bookCover.placeholder = 'Enter cover image url';
         authorInput.placeholder = 'Enter author\'s name';
         titleInput.placeholder = 'Enter book title';
@@ -383,11 +386,12 @@ function newBook(){
         closeButton.className = 'close-button';
 
         closeButton.addEventListener('click', () => {
+            console.log("Bruv I wanna leave")
             bookDiv.classList.remove('open');
         });
 
                 
-        bookForm.append(closeButton,bookCover,titleInput,authorInput,genreInput,ratingInput, submit);
+        bookForm.append(bookCover,titleInput,authorInput,genreInput,ratingInput, submit);
         
         bookForm.addEventListener('submit', (e) => {
             const bookData = {
@@ -437,10 +441,13 @@ function newBook(){
     
                 createdBooks.append(title, coverImage, author, genre, bookButton)
             })
+
+            bookForm.reset()
         })
         
-        bookDiv.classList.toggle('open')
-        bookDiv.append(createdBooks, bookForm);        
+        
+        bookDiv.append(closeButton,bookForm);   
+        addedBooks.append(createdBooks);     
     }
     
     
