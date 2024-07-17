@@ -1049,6 +1049,14 @@
       "format": "Hardcover, Paperback, eBook, Audiobook",
       "edition": "",
       "rating": null
+    },
+    {
+      "id": "2011",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "coverImage": "https://covers.openlibrary.org/b/id/10675771-L.jpg",
+      "genre": "Fiction",
+      "rating": "2"
     }
   ]
 }

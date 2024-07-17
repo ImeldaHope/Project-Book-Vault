@@ -366,6 +366,8 @@ function newBook(){
         const ratingInput = document.createElement('input');
         const genreInput = document.createElement('input');
         const submit = document.createElement('input');
+        const createdBooks = document.createElement('div');
+        
 
         bookForm.id = 'book-form';
         bookForm.style.display = 'flex';
@@ -384,11 +386,63 @@ function newBook(){
             bookDiv.classList.remove('open');
         });
 
-        bookForm.append(closeButton,bookCover,titleInput,authorInput,genreInput,ratingInput, submit);
                 
+        bookForm.append(closeButton,bookCover,titleInput,authorInput,genreInput,ratingInput, submit);
+        
+        bookForm.addEventListener('submit', (e) => {
+            const bookData = {
+                title: titleInput.value,
+                author: authorInput.value,
+                coverImage: bookCover.value,
+                genre: genreInput.value,
+                rating: ratingInput.value
+            };
+            console.log(bookData);
+
+            e.preventDefault();
+
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify(bookData)
+            })
+            .then(res => res.json())
+            .then((book) => {
+    
+                const title = document.createElement('p');
+                const coverImage = document.createElement('img');
+                const author = document.createElement('p');
+                const genre = document.createElement('p');
+                const rating = document.createElement('p');
+                const bookButton = document.createElement('btn');
+    
+                createdBooks.className = 'book';
+                author.className = 'author';
+                title.className = 'title';
+                bookButton.className = 'book-button';
+
+                bookButton.textContent = 'View Book';
+                title.textContent = book.title;
+                coverImage.src = book.coverImage;
+                author.textContent = book.author;
+                genre.textContent = book.genre;
+                rating.textContent = book.rating;
+
+                const bookId = book.id;
+                bookButton.addEventListener('click', () => {
+                    bookExpandable(bookId);
+                });
+    
+                createdBooks.append(title, coverImage, author, genre, bookButton)
+            })
+        })
+        
+        bookDiv.classList.toggle('open')
+        bookDiv.append(createdBooks, bookForm);        
     }
-    bookDiv.classList.toggle('open')
-    bookDiv.append(bookForm);
+    
     
 }
 
