@@ -141,7 +141,7 @@ p.selected-author{
     height: 700px;
 } */
 
-.book-details {
+.book-details {     
     position: fixed;
     top: 0;
     right: -100%; 
@@ -190,4 +190,23 @@ p.selected-author{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2px;
+}
+
+.input-div{
+    margin-bottom: 10px;    
+}
+
+.new-book{
+    margin: 30px;
+}
+#book-form{
+    display: none;
+    position: fixed;    
+    z-index: 1;
+    left: 0;
+    top: 0;
+    flex-direction: column;
+    width: 50%;
+    margin: 20px;    
+    background-color: #fefefe;
 }

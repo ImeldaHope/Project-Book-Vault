@@ -52,6 +52,7 @@ const genreDiv = document.querySelector('#genre-filter');
 document.addEventListener('DOMContentLoaded', () => {
     authorFilter();
     genreFilter();
+    newBook();
     renderBooks();
 })
 
@@ -277,6 +278,14 @@ function bookExpandable(id){
             const moreInfo = document.createElement('div');
             const likeButton = document.createElement('button');
             const deleteButton = document.createElement('button');
+            const inputDiv = document.createElement('form');
+            const inputForm = document.createElement('input');
+            const inputSubmit = document.createElement('input');
+            
+            inputForm.type = 'input';
+            inputForm.placeholder = 'Enter new rating';
+            inputSubmit.type = 'submit';
+
 
             detailedImage.src = book.coverImage;
             detailedTitle.textContent = book.title;
@@ -297,6 +306,9 @@ function bookExpandable(id){
             closeButton.textContent = 'X';
             closeButton.className = 'close-button';
             
+            inputDiv.className = 'input-div';
+            inputForm.className = 'input';
+
             const id = book.id;
 
             likeButton.addEventListener('click', () => {
@@ -306,12 +318,20 @@ function bookExpandable(id){
                 handleDelete(id);
             })
 
+            inputDiv.addEventListener('submit', (e) => {
+                e.preventDefault();
+                console.log(inputForm.value)
+                updateRate(id, inputForm.value);
+                inputDiv.reset();
+            })
+
             closeButton.addEventListener('click', () => {
                 detailsDiv.classList.remove('open');
             });
 
+            inputDiv.append(inputForm, inputSubmit)
             moreInfo.append(detailedPublisher,detailedYear,detailedLanguage, detailedFormat, detailedPages,detailedRating);
-            detailsDiv.append(closeButton, likeButton, detailedImage,detailedTitle,detailedAuthor,detailedSynopsis,moreInfo, deleteButton);
+            detailsDiv.append(closeButton, likeButton, detailedImage,detailedTitle,detailedAuthor,detailedSynopsis,moreInfo, inputDiv, deleteButton);
 
             bookContainer.append(detailsDiv);
             console.log(detailsDiv)
@@ -331,6 +351,47 @@ function handleLike(id){
 
 }
 
+function newBook(){
+    const bookDiv = document.querySelector('.new-book');
+    const bookBtn = document.querySelector('#book-btn');
+    const bookForm = document.createElement('form');
+
+    bookBtn.addEventListener('click', openModal);
+
+    function openModal(){
+        const closeButton = document.createElement('button');
+        const bookCover = document.createElement('input');
+        const authorInput = document.createElement('input');
+        const titleInput = document.createElement('input');
+        const ratingInput = document.createElement('input');
+        const genreInput = document.createElement('input');
+        const submit = document.createElement('input');
+
+        bookForm.id = 'book-form';
+        bookForm.style.display = 'flex';
+        submit.type = 'submit'; 
+        
+        bookCover.placeholder = 'Enter cover image url';
+        authorInput.placeholder = 'Enter author\'s name';
+        titleInput.placeholder = 'Enter book title';
+        ratingInput.placeholder = 'Enter book\'s rating'
+        genreInput.placeholder = 'Enter genre';
+
+        closeButton.textContent = 'X';
+        closeButton.className = 'close-button';
+
+        closeButton.addEventListener('click', () => {
+            bookDiv.classList.remove('open');
+        });
+
+        bookForm.append(closeButton,bookCover,titleInput,authorInput,genreInput,ratingInput, submit);
+                
+    }
+    bookDiv.classList.toggle('open')
+    bookDiv.append(bookForm);
+    
+}
+
 function handleDelete(id){
     
     fetch(`${url}/${id}`, {
@@ -338,5 +399,16 @@ function handleDelete(id){
         headers: {
             'Content-Type': 'application/json',
         }
+    })
+}
+
+function updateRate(id, newRate){
+    console.log()
+    fetch(`${url}/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({rating: newRate})
     })
 }
