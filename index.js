@@ -72,6 +72,7 @@ function renderBooks(){
             
 
             bookDiv.className = 'book';
+            bookDiv.id = item.id;
             author.className = 'author';
             title.className = 'title';
             bookButton.className = 'book-button';
@@ -479,11 +480,7 @@ function handleDelete(id){
             'Content-Type': 'application/json',
         }
     })
-    .then(res => res.json())
-    .then((data)=> {
-        bookExpandable(data.id).remove()
-
-    })    
+        
 }
 
 function updateRate(id, newRate){
