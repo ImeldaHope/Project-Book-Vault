@@ -257,7 +257,7 @@ function bookExpandable(id){
     .then(res => res.json())
     .then( data => {
         const book = data.find(book => book.id === id);
-        console.log(document.getElementById('detailsId'));
+       
         const varName = document.getElementById('detailsId');
 
         if(book){
@@ -301,7 +301,10 @@ function bookExpandable(id){
             detailedLanguage.textContent = "Languages: " + book.language;
             detailedFormat.textContent = "Available in: " + book.format;
             detailedRating.textContent = "Rating: " + book.rating;
-            deleteButton.textContent = 'Delete Book';            
+
+            deleteButton.className = 'cta-button';
+            deleteButton.textContent = 'Delete Book';  
+
             moreInfo.className = 'more-info';
 
             likeButton.textContent = '❤';
@@ -324,7 +327,7 @@ function bookExpandable(id){
 
             inputDiv.addEventListener('submit', (e) => {
                 e.preventDefault();
-                console.log(inputForm.value)
+                
                 updateRate(id, inputForm.value);
                 inputDiv.reset();
             })
@@ -475,11 +478,16 @@ function handleDelete(id){
         headers: {
             'Content-Type': 'application/json',
         }
+    })
+    .then(res => res.json())
+    .then((data)=> {
+        bookExpandable(data.id).remove()
+
     })    
 }
 
 function updateRate(id, newRate){
-    console.log()
+    
     fetch(`${url}/${id}`, {
         method: 'PATCH',
         headers: {

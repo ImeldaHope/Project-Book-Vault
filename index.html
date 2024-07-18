@@ -15,26 +15,38 @@
             <a href="#">Contact</a>
         </nav>
     </div>
+    <div class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Discover Your Next Great Read <br/> across a diverse selection of <em style="text-decoration: underline; color: #ff4c3b; transition: transform 0.3s ease-in-out;">genres</em> and from your favourite <em style="text-decoration: underline; color: #ff4c3b; transition: transform 0.3s ease-in-out;">authors</em></h1>
+        <p>Explore a rich world of books spanning all genres, from cherished classics that stand the test of time to the latest bestsellers capturing contemporary imagination. Find your perfect read today and embark on a journey through captivating stories waiting to be discovered.</p>  
+        <a href="#collection-title" class="cta-button" >View Collection</a>
+      </div>
+    </div>
+    <div class="added-book">
+      <div class="new-book-header">
+          <h2>New Books</h2>
+          <button id="book-btn">Create Book</button>            
+      </div>
+      <!-- Append the new book form here -->
+      <div class="new-book"></div>
+      <!-- Append the newly created books here -->
+      <div class="newly-added"></div>              
+    </div>
     <div id="recommended"></div>    
     <div id="genre-filter">
         <h2>View books by genre</h2>
+        <p>From thrilling mysteries and heartwarming romances to enlightening non-fiction and imaginative sci-fi, our diverse genre collection has something for every reader. Dive into new worlds, explore different perspectives, and find your next favorite book today.</p>
     </div>
     <div id="author-filter">
-        <h2>View books by author</h2>        
-    </div> 
-    <div class="added-book">
-        <div class="new-book-header">
-            <h2>New Books</h2>
-            <button id="book-btn">Create Book</button>            
-        </div>
-        <!-- Append the new book form here -->
-        <div class="new-book"></div>
-        <!-- Append the newly created books here -->
-        <div class="newly-added"></div>              
-    </div>
-    <div id="books-container">
+        <h2>View books by author</h2>  
+        <p>Easily explore our vast collection by filtering books from your favorite authors. Whether you're looking for a beloved classic or a new release, discover the perfect read from the writers you love.</p>      
+    </div>     
+    <h1 id="collection-title">Book Vault's Collection</h1>
+    <div id="books-container">      
         <div class="book-details"></div>
     </div>
+    <div class="footer"></div>
     <script src="index.js"></script>
 </body>
 </html>
